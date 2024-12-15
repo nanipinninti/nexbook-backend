@@ -1,0 +1,28 @@
+### Request
+POST http://35.154.82.187:5001/nani/login
+Content-Type: application/json
+
+{
+    "username": "nani",
+    "password": "nani123"
+}
+
+### Request
+POST http://localhost:5000/signup
+
+Content-Type: application/json
+{
+    username : "Nani",
+    email : "nani@gmail.com",
+    password : "Nani#123",
+    number : "7989063372"
+}
+
+### Request
+POST http://localhost:5000/signin
+
+Content-Type: application/json
+{
+    "password": "nani123",
+    "email" : "nani@12624"
+}
