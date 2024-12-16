@@ -3,18 +3,20 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const bodyParser = require("body-parser");
 const pool = require("./db"); // PostgreSQL connection
+const cors = require('cors');
 
 const app = express();
+app.use(cors({
+  origin: '*'  // This allows all domains
+}));
 app.use(bodyParser.json());
-
 const JWT_SECRET = "your_jwt_secret"; // Replace with a strong secret in production
 
 // SIGNUP API
 app.post("/signup", async (req, res) => {
-  const { name, email, number, password } = req.body;
-
+  const { name, email, number, password } = req.body;    
   if (!name || !email || !number || !password) {
-    return res.status(400).json({ error: "All fields are required" });
+    return res.status(400).json({error: "All fields are required" });
   }
 
   try {
