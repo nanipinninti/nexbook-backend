@@ -6,7 +6,7 @@ const pool = new Pool({
   user: "postgres", // Default username
   host: "localhost", // Default host
   database: "NexBook", // Your database name
-  password: "Nani@123", // Your password
+  password: "aparna2306", // Your password
   port: 5432, // Default PostgreSQL port
 });
 
