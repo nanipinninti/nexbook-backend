@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const pool = require("./db"); // PostgreSQL connection
 const cors = require('cors');
 
+
 const app = express();
 app.use(cors({
   origin: '*'  // This allows all domains
@@ -73,8 +74,38 @@ app.post("/login", async (req, res) => {
   }
 });
 
+
+app.post("/googleaccess", async (req, res) => {
+  const { email, name } = req.body;
+
+  // Check if both fields are present
+  if (!email || !name) {
+    return res.status(400).json({ error: "Email and name are required" });
+  }
+
+  try {
+    // Check if the user already exists
+    const userExists = await pool.query("SELECT * FROM \"Users\" WHERE email = $1", [email]);
+    if (userExists.rows.length === 0) {
+      // Insert the new user into the database
+      await pool.query(
+        "INSERT INTO \"Users\" (name, email) VALUES ($1, $2)",
+        [name, email]
+      );
+    }
+
+    // Generate JWT Token
+    const token = jwt.sign({ email }, JWT_SECRET, { expiresIn: "1h" });
+
+    // Return success response with the token
+    res.status(200).json({ message: "Google login successful", token });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 // Start Server
 const PORT = 5001;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(Server is running on port ${PORT});
 });
