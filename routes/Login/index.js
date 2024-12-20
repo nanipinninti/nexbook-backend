@@ -1,18 +1,12 @@
 const express = require("express");
+const pool = require('../../db')
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const bodyParser = require("body-parser");
-const pool = require("./db"); // PostgreSQL connection
-const cors = require('cors');
 
 
-const app = express();
-app.use(cors({
-  origin: '*'  // This allows all domains
-}));
-app.use(bodyParser.json());
-const JWT_SECRET = "your_jwt_secret"; // Replace with a strong secret in production
+const JWT_SECRET = "your_jwt_secret"
 
+const app = express.Router()
 // SIGNUP API
 app.post("/signup", async (req, res) => {
   const { name, email, number, password } = req.body;    
@@ -104,8 +98,5 @@ app.post("/googleaccess", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-// Start Server
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+
+module.exports = app;

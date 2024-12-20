@@ -1,0 +1,32 @@
+CREATE TABLE HotelDetails (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255),
+    price INT,
+    city VARCHAR(100),
+    address VARCHAR(255),
+    description TEXT,
+    image_url VARCHAR(500),
+    capacity INT
+);
+
+--bday party table
+
+CREATE TABLE birthday (
+    bday_hall_id SERIAL PRIMARY KEY,  -- Auto-increment primary key for birthday table
+    hotel_id INT,                     -- Foreign key referencing HotelDetails id
+    FOREIGN KEY (hotel_id) REFERENCES HotelDetails(id) ON DELETE CASCADE  -- Foreign key constraint
+);
+
+-- PrivateTheater table
+CREATE TABLE PrivateTheater (
+    private_theater_id SERIAL PRIMARY KEY,  -- Auto-increment primary key for PrivateTheater
+    hotel_id INT,                          -- Foreign key referencing HotelDetails id
+    FOREIGN KEY (hotel_id) REFERENCES HotelDetails(id) ON DELETE CASCADE  -- Foreign key constraint
+);
+
+-- CorporateParty table
+CREATE TABLE CorporateParty (
+    corporate_party_id SERIAL PRIMARY KEY,  -- Auto-increment primary key for CorporateParty
+    hotel_id INT,                           -- Foreign key referencing HotelDetails id
+    FOREIGN KEY (hotel_id) REFERENCES HotelDetails(id) ON DELETE CASCADE  -- Foreign key constraint
+);
